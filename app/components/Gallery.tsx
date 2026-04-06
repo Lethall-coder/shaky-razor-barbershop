@@ -1,49 +1,27 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { useReveal } from "../hooks/useReveal";
+import { useRef } from "react";
 
 const TOTAL_PHOTOS = 25;
-const PHOTOS_PER_SET = 8;
-const totalSets = Math.ceil(TOTAL_PHOTOS / PHOTOS_PER_SET);
-const allPhotos = Array.from({ length: TOTAL_PHOTOS }, (_, i) => i + 1);
-
-function getSet(index: number) {
-  const start = index * PHOTOS_PER_SET;
-  const set: number[] = [];
-  for (let i = 0; i < PHOTOS_PER_SET; i++) {
-    set.push(allPhotos[(start + i) % TOTAL_PHOTOS]);
-  }
-  return set;
-}
+const SCROLL_COUNT = 3;
+const PHOTO_SIZE = 280;
+const GAP = 4;
 
 export default function Gallery() {
-  const headerRef = useReveal();
-  const gridRef = useReveal();
-  const [currentSet, setCurrentSet] = useState(0);
-  const [sliding, setSliding] = useState<"left" | "right" | null>(null);
-  const [displaySet, setDisplaySet] = useState(0);
-  const lockRef = useRef(false);
+  const stripRef = useRef<HTMLDivElement>(null);
 
-  function navigate(direction: 1 | -1) {
-    if (lockRef.current) return;
-    lockRef.current = true;
-    setSliding(direction === 1 ? "left" : "right");
-    setTimeout(() => {
-      const next = (currentSet + direction + totalSets) % totalSets;
-      setCurrentSet(next);
-      setDisplaySet(next);
-      setSliding(null);
-      lockRef.current = false;
-    }, 400);
+  function scroll(direction: 1 | -1) {
+    if (!stripRef.current) return;
+    stripRef.current.scrollBy({
+      left: direction * (PHOTO_SIZE + GAP) * SCROLL_COUNT,
+      behavior: "smooth",
+    });
   }
-
-  const photos = getSet(displaySet);
 
   return (
     <section className="gallery" id="gallery">
       <div className="container">
-        <div className="section-header reveal" ref={headerRef}>
+        <div className="section-header">
           <div className="section-label">Our Work</div>
           <h2 className="section-title">The Gallery</h2>
           <div className="section-divider"></div>
@@ -52,29 +30,26 @@ export default function Gallery() {
       <div className="gallery-carousel">
         <button
           className="gallery-arrow gallery-arrow-left"
-          onClick={() => navigate(-1)}
-          aria-label="Previous photos"
+          onClick={() => scroll(-1)}
+          aria-label="Scroll left"
         >
           &#8249;
         </button>
-        <div
-          className={`gallery-grid reveal${sliding === "left" ? " gallery-slide-left" : sliding === "right" ? " gallery-slide-right" : ""}`}
-          ref={gridRef}
-        >
-          {photos.map((num) => (
-            <div key={`${displaySet}-${num}`} className="gallery-item">
-              <img
-                src={`/images/gallery/${num}.jpg`}
-                alt={`Gallery photo ${num}`}
-                loading="lazy"
-              />
-            </div>
+        <div className="gallery-strip" ref={stripRef}>
+          {Array.from({ length: TOTAL_PHOTOS }, (_, i) => (
+            <img
+              key={i}
+              src={`/images/gallery/${i + 1}.jpg`}
+              alt={`Gallery photo ${i + 1}`}
+              className="gallery-photo"
+              loading="lazy"
+            />
           ))}
         </div>
         <button
           className="gallery-arrow gallery-arrow-right"
-          onClick={() => navigate(1)}
-          aria-label="Next photos"
+          onClick={() => scroll(1)}
+          aria-label="Scroll right"
         >
           &#8250;
         </button>
