@@ -19,7 +19,7 @@ const reviews = [
     text: "\u201cClean fades, sharp lineups, and a welcoming atmosphere every single visit. You can tell the team here genuinely cares about their clients. Easily the best in the area.\u201d",
     author: "Regular Client",
     source: "via Google",
-    url: "https://www.google.com/maps/place/The+Shaky+Razor+Barbershop/",
+    url: "https://www.google.com/search?q=The+Shaky+Razor+Barbershop+San+Ramon+CA+reviews",
   },
 ];
 
