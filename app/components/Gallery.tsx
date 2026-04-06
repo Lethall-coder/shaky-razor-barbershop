@@ -1,12 +1,47 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import { useReveal } from "../hooks/useReveal";
 
-const gallerySlots = Array.from({ length: 8 }, (_, i) => i + 1);
+const TOTAL_PHOTOS = 25;
+const PHOTOS_PER_SET = 8;
+const ROTATE_INTERVAL = 4000;
+const allPhotos = Array.from({ length: TOTAL_PHOTOS }, (_, i) => i + 1);
+
+function getSet(index: number) {
+  const start = index * PHOTOS_PER_SET;
+  const set: number[] = [];
+  for (let i = 0; i < PHOTOS_PER_SET; i++) {
+    set.push(allPhotos[(start + i) % TOTAL_PHOTOS]);
+  }
+  return set;
+}
+
+const totalSets = Math.ceil(TOTAL_PHOTOS / PHOTOS_PER_SET);
 
 export default function Gallery() {
   const headerRef = useReveal();
   const gridRef = useReveal();
+  const [currentSet, setCurrentSet] = useState(0);
+  const [fading, setFading] = useState(false);
+  const [displaySet, setDisplaySet] = useState(0);
+
+  const advance = useCallback((direction: 1 | -1) => {
+    if (fading) return;
+    setFading(true);
+    setTimeout(() => {
+      setCurrentSet((prev) => (prev + direction + totalSets) % totalSets);
+      setDisplaySet((prev) => (prev + direction + totalSets) % totalSets);
+      setFading(false);
+    }, 500);
+  }, [fading]);
+
+  useEffect(() => {
+    const timer = setInterval(() => advance(1), ROTATE_INTERVAL);
+    return () => clearInterval(timer);
+  }, [advance]);
+
+  const photos = getSet(displaySet);
 
   return (
     <section className="gallery" id="gallery">
@@ -17,24 +52,35 @@ export default function Gallery() {
           <div className="section-divider"></div>
         </div>
       </div>
-      <div className="gallery-grid reveal" ref={gridRef}>
-        {gallerySlots.map((num) => (
-          <div key={num} className="gallery-item">
-            <div className="gallery-placeholder">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <path d="m21 15-5-5L5 21" />
-              </svg>
-              Photo {num}
+      <div className="gallery-carousel">
+        <button
+          className="gallery-arrow gallery-arrow-left"
+          onClick={() => advance(-1)}
+          aria-label="Previous photos"
+        >
+          &#8249;
+        </button>
+        <div
+          className={`gallery-grid reveal${fading ? " gallery-fade-out" : " gallery-fade-in"}`}
+          ref={gridRef}
+        >
+          {photos.map((num) => (
+            <div key={`${displaySet}-${num}`} className="gallery-item">
+              <img
+                src={`/images/gallery/${num}.jpg`}
+                alt={`Gallery photo ${num}`}
+                loading="lazy"
+              />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <button
+          className="gallery-arrow gallery-arrow-right"
+          onClick={() => advance(1)}
+          aria-label="Next photos"
+        >
+          &#8250;
+        </button>
       </div>
     </section>
   );
