@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useRef } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const TOTAL_PHOTOS = 25;
 const PHOTOS_PER_SET = 8;
-const ROTATE_INTERVAL = 4000;
+const totalSets = Math.ceil(TOTAL_PHOTOS / PHOTOS_PER_SET);
 const allPhotos = Array.from({ length: TOTAL_PHOTOS }, (_, i) => i + 1);
 
 function getSet(index: number) {
@@ -17,29 +17,26 @@ function getSet(index: number) {
   return set;
 }
 
-const totalSets = Math.ceil(TOTAL_PHOTOS / PHOTOS_PER_SET);
-
 export default function Gallery() {
   const headerRef = useReveal();
   const gridRef = useReveal();
   const [currentSet, setCurrentSet] = useState(0);
-  const [fading, setFading] = useState(false);
+  const [sliding, setSliding] = useState<"left" | "right" | null>(null);
   const [displaySet, setDisplaySet] = useState(0);
+  const lockRef = useRef(false);
 
-  const advance = useCallback((direction: 1 | -1) => {
-    if (fading) return;
-    setFading(true);
+  function navigate(direction: 1 | -1) {
+    if (lockRef.current) return;
+    lockRef.current = true;
+    setSliding(direction === 1 ? "left" : "right");
     setTimeout(() => {
-      setCurrentSet((prev) => (prev + direction + totalSets) % totalSets);
-      setDisplaySet((prev) => (prev + direction + totalSets) % totalSets);
-      setFading(false);
-    }, 500);
-  }, [fading]);
-
-  useEffect(() => {
-    const timer = setInterval(() => advance(1), ROTATE_INTERVAL);
-    return () => clearInterval(timer);
-  }, [advance]);
+      const next = (currentSet + direction + totalSets) % totalSets;
+      setCurrentSet(next);
+      setDisplaySet(next);
+      setSliding(null);
+      lockRef.current = false;
+    }, 400);
+  }
 
   const photos = getSet(displaySet);
 
@@ -55,13 +52,13 @@ export default function Gallery() {
       <div className="gallery-carousel">
         <button
           className="gallery-arrow gallery-arrow-left"
-          onClick={() => advance(-1)}
+          onClick={() => navigate(-1)}
           aria-label="Previous photos"
         >
           &#8249;
         </button>
         <div
-          className={`gallery-grid reveal${fading ? " gallery-fade-out" : " gallery-fade-in"}`}
+          className={`gallery-grid reveal${sliding === "left" ? " gallery-slide-left" : sliding === "right" ? " gallery-slide-right" : ""}`}
           ref={gridRef}
         >
           {photos.map((num) => (
@@ -76,7 +73,7 @@ export default function Gallery() {
         </div>
         <button
           className="gallery-arrow gallery-arrow-right"
-          onClick={() => advance(1)}
+          onClick={() => navigate(1)}
           aria-label="Next photos"
         >
           &#8250;
