@@ -13,7 +13,7 @@ export default function Hero() {
           <span className="hero-badge">Cash Only &middot; ATM Onsite</span>
         </div>
         <a
-          href="https://www.vagaro.com/theshakyrazorbarbershop/services"
+          href="https://www.vagaro.com/theshakyrazorbarbershop"
           target="_blank"
           rel="noopener noreferrer"
           className="hero-cta"

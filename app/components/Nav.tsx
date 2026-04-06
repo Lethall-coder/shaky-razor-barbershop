@@ -64,7 +64,7 @@ export default function Nav() {
           </li>
         </ul>
         <a
-          href="https://www.vagaro.com/theshakyrazorbarbershop/services"
+          href="https://www.vagaro.com/theshakyrazorbarbershop"
           target="_blank"
           rel="noopener noreferrer"
           className="nav-book-btn"

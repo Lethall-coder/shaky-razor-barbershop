@@ -8,7 +8,7 @@ export default function Footer() {
       </div>
       <div className="footer-links">
         <a
-          href="https://www.vagaro.com/theshakyrazorbarbershop/services"
+          href="https://www.vagaro.com/theshakyrazorbarbershop"
           target="_blank"
           rel="noopener noreferrer"
         >

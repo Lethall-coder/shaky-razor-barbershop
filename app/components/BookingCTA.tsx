@@ -5,7 +5,7 @@ export default function BookingCTA() {
       <p>Book your appointment online through Vagaro and skip the wait.</p>
       <div className="cta-note">Cash Only &middot; ATM Available Onsite</div>
       <a
-        href="https://www.vagaro.com/theshakyrazorbarbershop/services"
+        href="https://www.vagaro.com/theshakyrazorbarbershop"
         target="_blank"
         rel="noopener noreferrer"
         className="cta-btn"
