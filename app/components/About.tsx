@@ -11,15 +11,15 @@ export default function About() {
       <div className="container">
         <div className="section-header reveal" ref={headerRef}>
           <div className="section-label">Our Story</div>
-          <h2 className="section-title">The Man Behind the Chair</h2>
+          <h2 className="section-title">Behind the Chair</h2>
           <div className="section-divider"></div>
         </div>
         <div className="about-content reveal" ref={contentRef}>
           <div className="about-image-wrap">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/greg-rocha.png"
-              alt="Greg Rocha — Owner and Master Barber at The Shaky Razor Barbershop"
+              src="/images/greg-brenda.jpg"
+              alt="Greg & Brenda Rocha - Owners"
               className="about-image"
             />
           </div>

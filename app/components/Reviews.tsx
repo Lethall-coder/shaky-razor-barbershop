@@ -7,16 +7,19 @@ const reviews = [
     text: "\u201cFound my forever barbershop. The level of detail and care here is unmatched \u2014 every cut is precise, no rushing, no shortcuts. Just quality work every time.\u201d",
     author: "Loyal Client",
     source: "via Yelp",
+    url: "https://www.yelp.com/biz/the-shaky-razor-barbershop-san-ramon",
   },
   {
     text: "\u201cMy son has autism and is very sensitive to sensory overload. Atif is incredibly gentle and patient \u2014 my son now loves getting haircuts and we\u2019re loyal regulars.\u201d",
     author: "Grateful Parent",
     source: "via Vagaro",
+    url: "https://www.vagaro.com/theshakyrazorbarbershop",
   },
   {
     text: "\u201cClean fades, sharp lineups, and a welcoming atmosphere every single visit. You can tell the team here genuinely cares about their clients. Easily the best in the area.\u201d",
     author: "Regular Client",
     source: "via Google",
+    url: "https://www.google.com/maps/place/The+Shaky+Razor+Barbershop/",
   },
 ];
 
@@ -38,12 +41,18 @@ export default function Reviews() {
         </div>
         <div className="reviews-grid reveal" ref={gridRef}>
           {reviews.map((review, i) => (
-            <div key={i} className="review-card">
+            <a
+              key={i}
+              href={review.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="review-card"
+            >
               <div className="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
               <p className="review-text">{review.text}</p>
               <div className="review-author">&mdash; {review.author}</div>
               <div className="review-source">{review.source}</div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

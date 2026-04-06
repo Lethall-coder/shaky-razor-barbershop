@@ -43,6 +43,11 @@ export default function Nav() {
             </a>
           </li>
           <li>
+            <a href="#team" onClick={(e) => handleNavClick(e, "#team")}>
+              Team
+            </a>
+          </li>
+          <li>
             <a href="#gallery" onClick={(e) => handleNavClick(e, "#gallery")}>
               Gallery
             </a>
@@ -55,11 +60,6 @@ export default function Nav() {
           <li>
             <a href="#location" onClick={(e) => handleNavClick(e, "#location")}>
               Location
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={(e) => handleNavClick(e, "#contact")}>
-              Contact
             </a>
           </li>
         </ul>
