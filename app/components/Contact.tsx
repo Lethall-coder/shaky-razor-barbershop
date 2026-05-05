@@ -7,9 +7,12 @@ export default function Contact() {
   const headerRef = useReveal();
   const contentRef = useReveal();
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
     const form = e.currentTarget;
     const data = new FormData(form);
 
@@ -23,6 +26,8 @@ export default function Contact() {
       form.reset();
     } catch {
       alert("Something went wrong. Please try calling us instead.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -91,8 +96,8 @@ export default function Contact() {
                   required
                 ></textarea>
               </div>
-              <button type="submit" className="form-submit">
-                Send Message
+              <button type="submit" className="form-submit" disabled={submitting}>
+                {submitting ? "Sending..." : "Send Message"}
               </button>
             </form>
           )}
