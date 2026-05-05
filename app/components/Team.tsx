@@ -4,16 +4,16 @@ import { useState } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const barbers = [
-  { name: "Greg", subtitle: "Co-Owner", image: "/images/barbers/greg.jpg" },
-  { name: "Brenda", subtitle: "Co-Owner", image: "/images/barbers/brenda.jpg" },
-  { name: "Jorge", image: "/images/barbers/jorge.jpg" },
-  { name: "Alexis", image: "/images/barbers/alexis.jpg", position: "center 20%" },
-  { name: "Atif", image: "/images/barbers/atif.jpg" },
-  { name: "Chris", image: "/images/barbers/chris.jpg", position: "center 20%" },
-  { name: "Tyrone", image: "/images/barbers/tyrone.jpg" },
-  { name: "Patty", image: "/images/barbers/patty.jpg" },
-  { name: "Toby", image: "/images/barbers/toby.jpg" },
-  { name: "Yureni", image: "/images/barbers/yureni.jpg" },
+  { name: "Greg", subtitle: "Co-Owner", image: "/images/barbers/greg.jpg", position: "center 15%" },
+  { name: "Brenda", subtitle: "Co-Owner", image: "/images/barbers/brenda.jpg", position: "center 10%" },
+  { name: "Jorge", image: "/images/barbers/jorge.jpg", position: "center 15%" },
+  { name: "Alexis", image: "/images/barbers/alexis.jpg", position: "center 30%" },
+  { name: "Atif", image: "/images/barbers/atif.jpg", position: "center 25%" },
+  { name: "Chris", image: "/images/barbers/chris.jpg", position: "center 35%" },
+  { name: "Tyrone", image: "/images/barbers/tyrone.jpg", position: "center 20%" },
+  { name: "Patty", image: "/images/barbers/patty.jpg", position: "center 20%" },
+  { name: "Toby", image: "/images/barbers/toby.jpg", position: "center 25%" },
+  { name: "Yureni", image: "/images/barbers/yureni.jpg", position: "center 15%" },
 ];
 
 function getInitials(name: string) {
