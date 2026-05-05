@@ -7,9 +7,9 @@ const barbers = [
   { name: "Greg", subtitle: "Co-Owner", image: "/images/barbers/greg.jpg" },
   { name: "Brenda", subtitle: "Co-Owner", image: "/images/barbers/brenda.jpg" },
   { name: "Jorge", image: "/images/barbers/jorge.jpg" },
-  { name: "Alexis", image: "/images/barbers/alexis.jpg" },
+  { name: "Alexis", image: "/images/barbers/alexis.jpg", position: "center 20%" },
   { name: "Atif", image: "/images/barbers/atif.jpg" },
-  { name: "Chris", image: "/images/barbers/chris.jpg" },
+  { name: "Chris", image: "/images/barbers/chris.jpg", position: "center 20%" },
   { name: "Tyrone", image: "/images/barbers/tyrone.jpg" },
   { name: "Patty", image: "/images/barbers/patty.jpg" },
   { name: "Toby", image: "/images/barbers/toby.jpg" },
@@ -23,7 +23,7 @@ function getInitials(name: string) {
     .join("");
 }
 
-function BarberCard({ name, subtitle, image }: { name: string; subtitle?: string; image: string }) {
+function BarberCard({ name, subtitle, image, position }: { name: string; subtitle?: string; image: string; position?: string }) {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -38,6 +38,7 @@ function BarberCard({ name, subtitle, image }: { name: string; subtitle?: string
           src={image}
           alt={name}
           className="team-photo"
+          style={position ? { objectPosition: position } : undefined}
           onError={() => setImgError(true)}
         />
       )}
@@ -61,7 +62,7 @@ export default function Team() {
         </div>
         <div className="team-grid reveal" ref={gridRef}>
           {barbers.map((barber) => (
-            <BarberCard key={barber.name} name={barber.name} subtitle={barber.subtitle} image={barber.image} />
+            <BarberCard key={barber.name} name={barber.name} subtitle={barber.subtitle} image={barber.image} position={barber.position} />
           ))}
         </div>
       </div>
