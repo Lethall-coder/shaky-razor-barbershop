@@ -4,13 +4,16 @@ import { useState } from "react";
 import { useReveal } from "../hooks/useReveal";
 
 const barbers = [
-  { name: "Jorge Ramirez", image: "/images/barbers/jorge-ramirez.jpg" },
-  { name: "Yureni Crisbel", image: "/images/barbers/yureni-crisbel.jpg" },
-  { name: "Alexis Rincon", image: "/images/barbers/alexis-rincon.jpg" },
-  { name: "Tyrone Mean", image: "/images/barbers/tyrone-mean.jpg" },
-  { name: "Chris Demara", image: "/images/barbers/chris-demara.jpg" },
-  { name: "Atif Naeemi", image: "/images/barbers/atif-naeemi.jpg" },
-  { name: "Patty Holtz", image: "/images/barbers/patty-holtz.jpg" },
+  { name: "Greg", subtitle: "Co-Owner", image: "/images/barbers/greg.jpg" },
+  { name: "Brenda", subtitle: "Co-Owner", image: "/images/barbers/brenda.jpg" },
+  { name: "Jorge", image: "/images/barbers/jorge.jpg" },
+  { name: "Alexis", image: "/images/barbers/alexis.jpg" },
+  { name: "Atif", image: "/images/barbers/atif.jpg" },
+  { name: "Chris", image: "/images/barbers/chris.jpg" },
+  { name: "Tyrone", image: "/images/barbers/tyrone.jpg" },
+  { name: "Patty", image: "/images/barbers/patty.jpg" },
+  { name: "Toby", image: "/images/barbers/toby.jpg" },
+  { name: "Yureni", image: "/images/barbers/yureni.jpg" },
 ];
 
 function getInitials(name: string) {
@@ -20,7 +23,7 @@ function getInitials(name: string) {
     .join("");
 }
 
-function BarberCard({ name, image }: { name: string; image: string }) {
+function BarberCard({ name, subtitle, image }: { name: string; subtitle?: string; image: string }) {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -39,6 +42,7 @@ function BarberCard({ name, image }: { name: string; image: string }) {
         />
       )}
       <div className="team-name">{name}</div>
+      {subtitle && <div className="team-subtitle">{subtitle}</div>}
     </div>
   );
 }
@@ -57,7 +61,7 @@ export default function Team() {
         </div>
         <div className="team-grid reveal" ref={gridRef}>
           {barbers.map((barber) => (
-            <BarberCard key={barber.name} name={barber.name} image={barber.image} />
+            <BarberCard key={barber.name} name={barber.name} subtitle={barber.subtitle} image={barber.image} />
           ))}
         </div>
       </div>
