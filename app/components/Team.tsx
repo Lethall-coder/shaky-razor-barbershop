@@ -9,7 +9,6 @@ const barbers = [
   { name: "Jorge", image: "/images/barbers/jorge.jpg", position: "center 15%" },
   { name: "Alexis", image: "/images/barbers/alexis.jpg", position: "center 30%" },
   { name: "Atif", image: "/images/barbers/atif.jpg", position: "center 25%" },
-  { name: "Chris", image: "/images/barbers/chris.jpg", position: "center 35%" },
   { name: "Tyrone", image: "/images/barbers/tyrone.jpg", position: "center 20%" },
   { name: "Patty", image: "/images/barbers/patty.jpg", position: "center 20%" },
   { name: "Toby", image: "/images/barbers/toby.jpg", position: "center 25%" },
