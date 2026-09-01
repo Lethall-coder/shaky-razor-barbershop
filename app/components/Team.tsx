@@ -13,6 +13,7 @@ const barbers = [
   { name: "Patty", image: "/images/barbers/patty.jpg", position: "center 20%" },
   { name: "Toby", image: "/images/barbers/toby.jpg", position: "center 25%" },
   { name: "Yureni", image: "/images/barbers/yureni.jpg", position: "center 15%" },
+  { name: "Heaven", image: "/images/barbers/heaven.jpg", position: "center 25%" },
 ];
 
 function getInitials(name: string) {
